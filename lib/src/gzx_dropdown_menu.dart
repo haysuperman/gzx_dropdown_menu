@@ -141,11 +141,17 @@ class _GZXDropDownMenuState extends State<GZXDropDownMenu> with SingleTickerProv
     _maskColorOpacity = widget.maskColor.opacity * heightScale;
 //    print('$_maskColorOpacity');
     //这行如果不写，没有动画效果
-    setState(() {});
+    if (mounted) setState(() {});
+    // setState(() {});
   }
 
   Widget _mask() {
     if (_isShowMask) {
+      if (_maskColorOpacity==null || _maskColorOpacity==0){
+        return Container(
+          height: 0,
+        );
+      }
       return GestureDetector(
         onTap: () {
           widget.controller.hide();
